@@ -77,3 +77,4 @@ input[type="text"]:focus {
 .bubble{padding:.4rem .6rem; border-radius:var(--radius); margin:.4rem 0; line-height:1.4}
 .bubble.user{background:rgba(138,211,255,.12); align-self:flex-end;}
 .bubble.ai  {background:rgba(255,255,255,.05);}
+
