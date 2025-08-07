@@ -26,9 +26,9 @@ Respond in **two sentences** exactly:
 
   const history = [
     { role: "user", parts: [{ text: systemRules }] },
-    { role: "model", parts: [{ text: "You are to prove to me that you are a human. You have 5 tries or I will be sending you back to where you came from." }] }
+    { role: "model", parts: [{ text: "Prove to me that you are a human. You have 5 tries or I will be sending you back to where you came from." }] }
   ];
-  
+
   renderAI(history[1].parts[0].text);
 
   submit.onclick = async () => {
@@ -74,7 +74,7 @@ Respond in **two sentences** exactly:
   function lockOut() {
     input.disabled = true;
     submit.disabled = true;
-    renderAI("REJECT: The Gatekeeper has lost patience. You are not worthy.");
+    renderAI("REJECT: The Gatekeeper has lost patience. You are an imposter.");
     restart.innerHTML = `<button class="btn" style="margin-top:1rem">Return to Start</button>`;
     restart.style.display = "block";
     restart.querySelector("button").onclick = () => location.reload();

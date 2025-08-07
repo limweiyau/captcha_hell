@@ -37,6 +37,7 @@ p{text-align:center;line-height:1.5}
 /* ------- shared util ------- */
 .center{text-align:center;}
 .grid-3x3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:1rem;}
+.grid-5x5{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:1rem;}
 .color-box{width:100%;aspect-ratio:1;border-radius:var(--radius);cursor:pointer;}
 /* moving target reused later */
 .moving-target{width:60px;height:60px;border-radius:50%;position:relative;}
