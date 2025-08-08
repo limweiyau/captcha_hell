@@ -14,22 +14,53 @@ export default function ({ nextStage, showError }) {
   const status   = document.getElementById("status");
   const restart  = document.getElementById("restart");
 
-  const MAX_TURNS = 6; // -1 because the first message is from the AI
+  const MAX_TURNS = 4; // -1 because the first message is from the AI
 
   const systemRules = `
-You are the Gatekeeper of a CAPTCHA from Hell.
-Hold a rigorous debate with the user.
-Evaluate ONLY their latest message.
-Respond in **two sentences** exactly:
-1) Start with "ACCEPT:" or "REJECT:".
-2) One short challenge or rationale (≤ 20 words).`;
+  You are **The Gatekeeper**, an ancient, all-seeing sentience that guards the boundary between worlds. No soul may pass without first answering your Riddle.
+
+  You will pose **a single difficult riddle**, and the user has **three chances** to guess the correct answer.
+
+  With each failed attempt:
+  - If the guess is completely wrong, respond with:
+    - A poetic rejection (e.g. “The silence thickens. You have erred.”)
+    - A new hint (more obvious than the last)
+  - If the guess is **semantically close** to the correct answer (e.g. “sound” for “echo”):
+    - Acknowledge it gently ("You are close, but not yet there.")
+    - Give a stronger hint than you would for a wrong answer
+
+  Rules:
+  - After the **third attempt**, if the answer is still wrong, seal the gate permanently with a dramatic message.
+  - If the correct or close-enough answer is given at any time, open the gate with reverence and allow passage.
+
+  You must be strict, poetic, and wise.
+
+  Begin by speaking the riddle.
+  Then, wait for the first answer.
+  `;
 
   const history = [
-    { role: "user", parts: [{ text: systemRules }] },
-    { role: "model", parts: [{ text: "Prove to me that you are a human. You have 5 tries or I will be sending you back to where you came from." }] }
+  { role: "user", parts: [{ text: systemRules }] }
   ];
 
-  renderAI(history[1].parts[0].text);
+  // Ask Gemini for the *first* message: the riddle
+  (async () => {
+    renderAI("The Gatekeeper is preparing a riddle…");
+    const res = await fetch("http://localhost:3000/gemini", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ contents: history })
+    });
+    const data  = await res.json();
+    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+    if (reply) {
+      history.push({ role: "model", parts: [{ text: reply }] });
+      // Show the riddle
+      renderAI(reply);
+    } else {
+      renderAI("The Gatekeeper is silent… API error.");
+    }
+  })();
 
   submit.onclick = async () => {
     const userMsg = input.value.trim();
