@@ -1,10 +1,10 @@
 import stage1 from "./stages/stage1.js";
 import stage2 from "./stages/stage2.js";
+// import stagex from "./stages/stagex.js";
 import stage3 from "./stages/stage3.js";
-import stage4 from "./stages/stage4.js";
 // Add/remove as needed
 
-const stages = [stage1, stage2, stage3, stage4]; // Easy config
+const stages = [stage1, stage2, stage3]; // Easy config
 
 const appEl   = document.getElementById("app");
 const errorEl = document.getElementById("error");
