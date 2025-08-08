@@ -1,5 +1,5 @@
 /* -----------------------------------------------------------------------
-   Stage X – Deep-Fried Text 2.0  (solvable + extra crispy)
+   Stage 4 – Deep-Fried Text 2.0  (solvable + extra crispy)
 ------------------------------------------------------------------------ */
 export default function ({ nextStage, showError }) {
   /* ---------- Scaffold ---------- */
@@ -19,7 +19,7 @@ export default function ({ nextStage, showError }) {
     const s=document.createElement("style"); s.id="df-style";
     s.textContent=`.captcha-card{position:relative;width:min(340px,95vw);margin:auto;padding:1.5rem 1rem 2rem;
       background:#1b2230;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.35);display:grid;gap:1rem;justify-items:center;color:#e7ecff}
-      #cap {filter: contrast(300%) saturate(2000%) brightness(110%) hue-rotate(20deg) blur(0.3px) drop-shadow(0 0 6px orange);}
+      #cap {filter: contrast(400%) saturate(3000%) brightness(110%) hue-rotate(20deg) blur(0.4px) drop-shadow(0 0 6px orange);}
       #rf{position:absolute;top:1rem;right:1rem;background:transparent;border:0;color:#8ad3ff;font-size:1.25rem;cursor:pointer;transition:transform .2s}
       #rf:hover{transform:rotate(90deg)}#inp{width:100%;padding:.65rem .75rem;border-radius:4px;border:1px solid rgba(255,255,255,.12);
       background:rgba(255,255,255,.05);color:#e7ecff}#go{width:100%;padding:.6rem;background:#8ad3ff;border:0;border-radius:4px;color:#000;font-weight:600;cursor:pointer}
@@ -65,7 +65,7 @@ export default function ({ nextStage, showError }) {
   function noise(){
     const d=ctx.getImageData(0,0,C.width,C.height).data;
     for(let i=0;i<d.length;i+=4){
-      const n=rand(-5,20);
+      const n=rand(-15,25);
       d[i]+=n;d[i+1]+=n;d[i+2]+=n;
     }
     ctx.putImageData(new ImageData(new Uint8ClampedArray(d),C.width,C.height),0,0);
@@ -94,8 +94,8 @@ export default function ({ nextStage, showError }) {
   }
   function pixelCrunch(){
     const off=document.createElement("canvas");
-    off.width= C.width/0.8; 
-    off.height= C.height/0.8;
+    off.width= C.width/2.5; 
+    off.height= C.height/2.5;
     const octx=off.getContext("2d");
     octx.drawImage(C,0,0,off.width,off.height);
     ctx.imageSmoothingEnabled=false;
@@ -109,9 +109,7 @@ export default function ({ nextStage, showError }) {
     ctx.clearRect(0,0,C.width,C.height);
     /* bg */
     const g = ctx.createRadialGradient(160, 55, 10, 160, 55, 160); // center X,Y
-    g.addColorStop(0, "#552200");   // bright orange core
-    g.addColorStop(1, "#1a0900");   // fades to dark
-    ctx.fillStyle = g;
+    ctx.fillStyle = "#552200"; // flat deep orange
     ctx.fillRect(0, 0, 320, 110);
 
     /* wrap onto 1-2 lines */
@@ -140,7 +138,7 @@ export default function ({ nextStage, showError }) {
 
   /* ---------- Verification ---------- */
   function check(){
-    if(inp.value.trim() === answer){
+    if (inp.value.trim().toLowerCase() === answer.toLowerCase()) {
       msg.textContent="✅ Verified… for now."; nextStage();
     }else showError("❌ Wrong.  Try again or refresh.");
   }

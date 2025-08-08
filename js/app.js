@@ -4,9 +4,9 @@
 import stage1 from "./stages/stage1.js";
 import stage2 from "./stages/stage2.js";
 import stage3 from "./stages/stage3.js";
-import stage0 from "./stages/stage0.js";
+import stage4 from "./stages/stage4.js";
 
-const stages = [stage0, stage1, stage2, stage3]; // append new modules here
+const stages = [stage1, stage2, stage3, stage4]; // append new modules here
 
 /* ---------------- helpers ---------------- */
 const appEl   = document.getElementById("app");
